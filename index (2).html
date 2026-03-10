@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emma Fargeix — Designer d'Intérieur · Auvergne</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Tenor+Sans&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1410;--sand:#e8ddd0;--linen:#f5f0ea;--paper:#faf8f5;--gold:#b8976a;--stone:#9b9186;--white:#ffffff}
+html{scroll-behavior:smooth}
+body{font-family:'Tenor Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}a{text-decoration:none}ul{list-style:none}
+@media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}}
+
+/* CURSOR */
+.cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .4s,width .3s,height .3s;opacity:.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 64px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,padding .4s}
+nav.scrolled{background:rgba(250,248,245,.96);backdrop-filter:blur(12px);padding:18px 64px;border-bottom:1px solid rgba(184,151,106,.2)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);transition:color .4s}
+nav.scrolled .nav-logo{color:var(--ink)}
+.nav-links{display:flex;gap:40px;align-items:center}
+.nav-links a{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+nav.scrolled .nav-links a{color:var(--stone)}
+nav.scrolled .nav-links a:hover{color:var(--ink)}
+.nav-cta{border:1px solid rgba(255,255,255,.4)!important;padding:10px 24px!important;transition:all .3s!important}
+.nav-cta:hover{background:var(--gold)!important;border-color:var(--gold)!important;color:var(--white)!important}
+nav.scrolled .nav-cta{border-color:var(--gold)!important;color:var(--gold)!important}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s}
+nav.scrolled .burger span{background:var(--ink)}
+
+/* HERO */
+.hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 64px 80px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,20,16,.3) 0%,rgba(26,20,16,.7) 100%),url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80') center/cover no-repeat;animation:heroZoom 12s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:16px;opacity:0;animation:fadeUp .8s .3s ease forwards}
+.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(3.2rem,6vw,6rem);line-height:1.05;color:var(--white);margin-bottom:28px;opacity:0;animation:fadeUp .9s .5s ease forwards}
+.hero h1 em{font-style:italic;color:var(--sand)}
+.hero-sub{font-size:13px;letter-spacing:.08em;color:rgba(255,255,255,.65);line-height:1.8;max-width:420px;margin-bottom:48px;opacity:0;animation:fadeUp .9s .7s ease forwards}
+.hero-actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .9s ease forwards}
+.hero-stats{position:absolute;right:64px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:32px;opacity:0;animation:fadeIn 1s 1.2s ease forwards}
+.hero-stat{text-align:right;border-right:1px solid rgba(184,151,106,.4);padding-right:20px}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--white);line-height:1}
+.hero-stat-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px}
+.scroll-hint{position:absolute;right:64px;bottom:80px;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s 1.5s ease forwards}
+.scroll-hint span{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);animation:scrollDrop 2s 2s ease infinite}
+@keyframes scrollDrop{0%{transform:scaleY(0);transform-origin:top;opacity:1}50%{transform:scaleY(1);transform-origin:top;opacity:1}100%{transform:scaleY(1);transform-origin:bottom;opacity:0}}
+
+/* BUTTONS */
+.btn-gold{background:var(--gold);color:var(--white);padding:16px 36px;font-family:'Tenor Sans',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;border:none;transition:background .3s,transform .2s;display:inline-block;cursor:pointer}
+.btn-gold:hover{background:#a07d52;transform:translateY(-2px)}
+.btn-ghost{color:rgba(255,255,255,.7);font-size:10px;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:10px;transition:color .3s}
+.btn-ghost:hover{color:var(--white)}
+.btn-ghost span{transition:transform .3s}
+.btn-ghost:hover span{transform:translateX(5px)}
+.btn-dark{background:var(--ink);color:var(--white);padding:16px 36px;font-family:'Tenor Sans',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;display:inline-block}
+.btn-dark:hover{background:var(--gold)}
+
+/* MARQUEE */
+.marquee-section{background:var(--ink);padding:24px 0;overflow:hidden;border-top:1px solid rgba(184,151,106,.2);border-bottom:1px solid rgba(184,151,106,.2)}
+.marquee-track{display:flex;animation:marquee 20s linear infinite;white-space:nowrap}
+.marquee-item{display:inline-flex;align-items:center;gap:32px;padding:0 32px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* LABEL */
+.section-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.section-label::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+
+/* INTRO */
+.intro{padding:140px 64px;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
+.intro-left{position:sticky;top:120px}
+.intro-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.15;color:var(--ink)}
+.intro-left h2 em{font-style:italic;color:var(--gold)}
+.intro-right{padding-top:20px}
+.intro-text-large{font-family:'EB Garamond',serif;font-size:clamp(1.2rem,2vw,1.5rem);font-style:italic;line-height:1.7;color:var(--ink);margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--sand)}
+.intro-text{font-size:13.5px;line-height:1.95;color:#5a4f47;margin-bottom:24px}
+.intro-sign{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:var(--gold);margin-top:40px}
+
+/* SERVICES */
+.services{padding:140px 64px;background:var(--linen)}
+.services-header{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:80px;align-items:end}
+.services-header h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;line-height:1.1;color:var(--ink)}
+.services-header h2 em{font-style:italic;color:var(--gold)}
+.services-header p{font-size:13px;line-height:1.85;color:var(--stone);max-width:360px;margin-left:auto}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--sand)}
+.service-item{background:var(--linen);padding:48px 40px;position:relative;overflow:hidden;transition:background .4s}
+.service-item::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--gold);transition:height .4s}
+.service-item:hover{background:var(--paper)}
+.service-item:hover::before{height:100%}
+.service-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:400;color:var(--sand);line-height:1;margin-bottom:24px;transition:color .4s}
+.service-item:hover .service-num{color:rgba(184,151,106,.3)}
+.service-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;color:var(--ink);margin-bottom:16px;line-height:1.2}
+.service-desc{font-size:12.5px;line-height:1.85;color:var(--stone);margin-bottom:28px}
+.service-link{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;transition:gap .3s}
+.service-link:hover{gap:16px}
+.service-link::after{content:'→';font-size:1rem}
+
+/* PORTFOLIO */
+.portfolio{padding:140px 64px}
+.portfolio-header{text-align:center;margin-bottom:80px}
+.portfolio-header h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;color:var(--ink);margin-bottom:16px}
+.portfolio-header h2 em{font-style:italic;color:var(--gold)}
+.portfolio-header p{font-size:12.5px;letter-spacing:.06em;color:var(--stone)}
+.portfolio-grid{display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:auto auto;gap:16px}
+.portfolio-item{position:relative;overflow:hidden;background:var(--sand)}
+.portfolio-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s,filter .5s;filter:saturate(.85)}
+.portfolio-item:hover img{transform:scale(1.06);filter:saturate(1)}
+.portfolio-item:nth-child(1){grid-row:span 2;min-height:600px}
+.portfolio-item:nth-child(2),.portfolio-item:nth-child(3){min-height:280px}
+.portfolio-caption{position:absolute;bottom:0;left:0;right:0;padding:28px 24px 20px;background:linear-gradient(to top,rgba(26,20,16,.8),transparent);transform:translateY(100%);transition:transform .4s}
+.portfolio-item:hover .portfolio-caption{transform:translateY(0)}
+.portfolio-caption-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);margin-bottom:4px}
+.portfolio-caption-sub{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.portfolio-cta{text-align:center;margin-top:60px}
+
+/* LOCALISATION */
+.localisation{background:var(--ink);padding:100px 64px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.loc-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:24px}
+.loc-left h2 em{font-style:italic;color:var(--gold)}
+.loc-left p{font-size:13px;line-height:1.9;color:rgba(255,255,255,.5);max-width:400px;margin-bottom:40px}
+.loc-zones{display:flex;flex-direction:column;gap:0}
+.loc-zone{display:flex;align-items:center;gap:16px;font-size:12px;color:rgba(255,255,255,.6);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.loc-zone:last-child{border-bottom:none}
+.loc-zone strong{color:var(--white);font-weight:400}
+.loc-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.loc-map{background:rgba(255,255,255,.03);border:1px solid rgba(184,151,106,.15);padding:48px;text-align:center;position:relative}
+.loc-badge{position:absolute;top:24px;right:24px;background:var(--gold);color:var(--white);padding:8px 16px;font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.map-svg{width:100%;max-width:280px;margin:0 auto;display:block}
+
+/* AVIS */
+.avis{padding:140px 64px;background:var(--paper);position:relative;overflow:hidden}
+.avis::before{content:'"';font-family:'Playfair Display',serif;font-size:20rem;color:var(--sand);position:absolute;top:-60px;left:40px;line-height:1;pointer-events:none}
+.avis-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.avis-stars{font-size:1.4rem;color:var(--gold);letter-spacing:6px;margin-bottom:36px}
+.avis blockquote{font-family:'EB Garamond',serif;font-size:clamp(1.2rem,2vw,1.6rem);font-style:italic;line-height:1.65;color:var(--ink);margin-bottom:32px}
+.avis-author{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}
+
+/* CONTACT */
+.contact{background:var(--sand);padding:140px 64px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.contact-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.15;color:var(--ink)}
+.contact-left h2 em{font-style:italic;color:var(--gold)}
+.contact-divider{width:48px;height:1px;background:var(--gold);margin:28px 0}
+.contact-left p{font-size:13px;line-height:1.9;color:#6b5f56;margin-bottom:48px}
+.contact-details{display:flex;flex-direction:column;gap:20px}
+.contact-detail{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--ink)}
+.contact-detail-icon{width:40px;height:40px;border:1px solid rgba(184,151,106,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-detail-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.contact-detail a{color:var(--ink);transition:color .2s}
+.contact-detail a:hover{color:var(--gold)}
+.contact-form{background:var(--paper);padding:52px}
+.form-label-top{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:36px;display:flex;align-items:center;gap:14px}
+.form-label-top::after{content:'';flex:1;height:1px;background:var(--sand)}
+.fgroup{margin-bottom:24px}
+.fgroup label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-bottom:8px}
+.fgroup input,.fgroup select,.fgroup textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--sand);padding:10px 0;font-family:'Tenor Sans',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:border-color .3s;resize:none}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--gold)}
+.fgroup textarea{height:80px}
+.fgroup select{appearance:none;cursor:pointer}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-btn{width:100%;background:var(--ink);color:var(--white);padding:16px;font-family:'Tenor Sans',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;border:none;cursor:pointer;margin-top:12px;transition:background .3s}
+.form-btn:hover{background:var(--gold)}
+.form-success{display:none;color:#4a7c59;font-size:13px;padding:12px 0}
+
+/* FOOTER */
+footer{background:var(--ink);padding:80px 64px 36px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:36px}
+.footer-brand h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:8px}
+.footer-brand-sub{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-brand p{font-size:12px;line-height:1.8;color:rgba(255,255,255,.35);max-width:220px}
+.footer-socials{display:flex;gap:12px;margin-top:28px}
+.footer-social{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:11px;transition:all .3s}
+.footer-social:hover{border-color:var(--gold);color:var(--gold)}
+.footer-col h5{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:20px}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:12px;color:rgba(255,255,255,.5);transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.06em;flex-wrap:wrap;gap:8px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.15s}
+.reveal-d2{transition-delay:.3s}
+.reveal-d3{transition-delay:.45s}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .intro{grid-template-columns:1fr}
+  .intro-left{position:static}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  nav.scrolled{padding:14px 24px}
+  .nav-links{display:none;position:fixed;inset:0;background:var(--ink);flex-direction:column;justify-content:center;align-items:center;gap:28px;z-index:99}
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:14px;color:var(--white)!important}
+  .burger{display:flex;z-index:101;position:relative}
+  .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .hero{padding:0 24px 60px}
+  .hero-stats,.scroll-hint{display:none}
+  .intro,.services,.portfolio,.avis,.contact,.localisation{padding:80px 24px}
+  .services-grid{grid-template-columns:1fr}
+  .services-header{grid-template-columns:1fr}
+  .services-header p{margin-left:0}
+  .portfolio-grid{grid-template-columns:1fr}
+  .portfolio-item:nth-child(1){grid-row:span 1;min-height:300px}
+  .localisation{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr;gap:48px}
+  .frow{grid-template-columns:1fr}
+  .contact-form{padding:28px}
+  footer{padding:60px 24px 28px}
+  .footer-top{grid-template-columns:1fr;gap:36px}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Emma Fargeix</a>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#intro">L'Atelier</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Rendu 3D</a></li>
+    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Designer d'intérieur · Puy-de-Dôme · Auvergne</div>
+    <h1>L'espace<br>que vous <em>méritez</em><br>existe.</h1>
+    <p class="hero-sub">Je conçois des intérieurs sur-mesure en Auvergne — alliant matériaux naturels, fonctionnalité et caractère.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-gold">Discutons de votre projet</a>
+      <a href="#portfolio" class="btn-ghost">Voir mes réalisations <span>→</span></a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">5+</div><div class="hero-stat-label">Années d'expérience</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">30+</div><div class="hero-stat-label">Projets réalisés</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">3D</div><div class="hero-stat-label">Visualisation réaliste</div></div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Conception sur-mesure <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Rendu 3D réaliste <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Matériaux naturels <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Puy-de-Dôme · Auvergne <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Plans 2D & 3D <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Particuliers & Professionnels <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Conception sur-mesure <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Rendu 3D réaliste <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Matériaux naturels <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Puy-de-Dôme · Auvergne <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Plans 2D & 3D <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Particuliers & Professionnels <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro" id="intro">
+  <div class="intro-left reveal">
+    <div class="section-label">L'Atelier</div>
+    <h2>Une approche<br><em>humaine</em><br>du design</h2>
+  </div>
+  <div class="intro-right">
+    <p class="intro-text-large reveal">« Originaire du Puy-de-Dôme, je conçois chaque projet comme une alliance entre esthétique et fonctionnalité — à la croisée du design, de l'architecture et de la technique. »</p>
+    <p class="intro-text reveal reveal-d1">Je réalise des plans en 2D et des rendus 3D réalistes pour vous aider à vous projeter concrètement dans votre futur intérieur, avant même que les travaux commencent.</p>
+    <p class="intro-text reveal reveal-d2">J'accorde une grande importance à l'usage de matériaux naturels — bois, pierre, lin — qui apportent chaleur, durabilité et identité aux espaces que je conçois.</p>
+    <div class="intro-sign reveal reveal-d3">Emma Fargeix</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">Ce que je propose</div>
+      <h2>Des services<br>pensés pour<br><em>votre projet</em></h2>
+    </div>
+    <p>De la simple esquisse au dossier technique complet — je m'adapte à votre niveau d'avancement et à vos besoins.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item reveal"><div class="service-num">01</div><div class="service-title">Conception Simple</div><div class="service-desc">Premier rendez-vous, prise de mesures sur place et plan 2D personnalisé. La base pour démarrer votre projet.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+    <div class="service-item reveal reveal-d1"><div class="service-num">02</div><div class="service-title">Conception Complète</div><div class="service-desc">Plans 2D/3D, rendu réaliste et planche d'ambiance. Visualisez chaque détail avant les travaux.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+    <div class="service-item reveal reveal-d2"><div class="service-num">03</div><div class="service-title">Conception Technique</div><div class="service-desc">Dossier complet avec plans techniques de second œuvre pour vos artisans. Devis inclus en option.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+    <div class="service-item reveal"><div class="service-num">04</div><div class="service-title">Agencement</div><div class="service-desc">Conception sur-mesure d'un meuble ou d'un rangement, avec plan technique et rendu 3D réaliste.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+    <div class="service-item reveal reveal-d1"><div class="service-num">05</div><div class="service-title">Rendu 3D</div><div class="service-desc">Images 4K ultra-réalistes de votre projet — idéal pour professionnels de l'immobilier, artisans et architectes.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+    <div class="service-item reveal reveal-d2"><div class="service-num">06</div><div class="service-title">Solution Pros</div><div class="service-desc">Conception d'espaces professionnels — commerces, restaurants, hôtels — alliant identité et fonctionnalité.</div><a href="#contact" class="service-link">En savoir plus</a></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-header reveal">
+    <div class="section-label" style="justify-content:center">Réalisations</div>
+    <h2>Chaque projet,<br>une <em>histoire</em> unique</h2>
+    <p>Rendus 3D, plans d'aménagement, conceptions sur-mesure</p>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80" alt="Le Four à Pain" loading="lazy">
+      <div class="portfolio-caption"><div class="portfolio-caption-title">Le Four à Pain</div><div class="portfolio-caption-sub">Rénovation complète · Puy-de-Dôme</div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Chalet Redon" loading="lazy">
+      <div class="portfolio-caption"><div class="portfolio-caption-title">Chalet Redon</div><div class="portfolio-caption-sub">Agencement bois · Auvergne</div></div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&q=80" alt="Maison Alta" loading="lazy">
+      <div class="portfolio-caption"><div class="portfolio-caption-title">Maison Alta</div><div class="portfolio-caption-sub">Conception complète · Clermont-Fd</div></div>
+    </div>
+  </div>
+  <div class="portfolio-cta reveal"><a href="#contact" class="btn-gold">Voir tout le portfolio</a></div>
+</section>
+
+<!-- LOCALISATION -->
+<section class="localisation">
+  <div class="loc-left reveal">
+    <div class="section-label" style="color:rgba(184,151,106,.8)">Zone d'intervention</div>
+    <h2>Basée en <em>Auvergne</em>,<br>je viens à vous.</h2>
+    <p>J'interviens principalement dans le Puy-de-Dôme et les départements voisins. Des déplacements plus lointains sont possibles.</p>
+    <div class="loc-zones">
+      <div class="loc-zone"><div class="loc-dot"></div><strong>Puy-de-Dôme (63)</strong> — zone principale</div>
+      <div class="loc-zone"><div class="loc-dot"></div>Clermont-Ferrand & agglomération</div>
+      <div class="loc-zone"><div class="loc-dot"></div>Allier · Haute-Loire · Cantal</div>
+      <div class="loc-zone"><div class="loc-dot"></div>Déplacements sur demande · France entière</div>
+    </div>
+  </div>
+  <div class="reveal reveal-d1">
+    <div class="loc-map">
+      <div class="loc-badge">Puy-de-Dôme</div>
+      <svg class="map-svg" viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M120,20 L160,15 L195,30 L220,55 L235,90 L240,130 L230,165 L250,190 L245,220 L220,250 L195,270 L170,290 L140,300 L110,295 L80,275 L55,250 L40,220 L35,185 L45,155 L40,120 L55,90 L75,65 L100,40 Z" fill="rgba(255,255,255,.04)" stroke="rgba(184,151,106,.2)" stroke-width="1"/>
+        <circle cx="148" cy="175" r="18" fill="rgba(184,151,106,.15)" stroke="rgba(184,151,106,.4)" stroke-width="1"/>
+        <circle cx="148" cy="175" r="5" fill="#b8976a"/>
+        <circle cx="148" cy="175" r="5" fill="#b8976a"><animate attributeName="r" values="5;20;5" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="3s" repeatCount="indefinite"/></circle>
+        <text x="158" y="178" fill="rgba(255,255,255,.4)" font-size="8" font-family="sans-serif" letter-spacing="1">CLERMONT-FD</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="avis">
+  <div class="avis-inner reveal">
+    <div class="avis-stars">★★★★★</div>
+    <blockquote>« Son expertise dans l'agencement d'intérieur et son sens du détail ont transformé mon projet en une réalisation sur-mesure, alliant esthétisme et fonctionnalité. Le résultat est tout simplement magnifique. »</blockquote>
+    <div class="avis-author">M.C. · Puy-de-Dôme · via Houzz</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <div class="section-label">Me contacter</div>
+    <h2>Parlons de<br>votre <em>projet</em></h2>
+    <div class="contact-divider"></div>
+    <p>Que vous souhaitiez transformer une pièce ou repenser votre intérieur de A à Z, je serais ravie d'échanger avec vous.</p>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.47 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.86-1.01a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <a href="tel:0778183681">07 78 18 36 81</a>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <a href="mailto:emma.atelierdesmonts@gmail.com">emma.atelierdesmonts@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <span>Puy-de-Dôme · Auvergne · France</span>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <div class="form-label-top">Première prise de contact</div>
+    <div class="frow">
+      <div class="fgroup"><label>Prénom</label><input type="text" placeholder="Marie"></div>
+      <div class="fgroup"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+    </div>
+    <div class="fgroup"><label>E-mail</label><input type="email" placeholder="marie@exemple.fr"></div>
+    <div class="fgroup"><label>Type de projet</label>
+      <select><option value="">Sélectionnez...</option><option>Particulier – réaménagement</option><option>Particulier – maison neuve</option><option>Professionnel</option><option>Rendu 3D uniquement</option></select>
+    </div>
+    <div class="fgroup"><label>Message</label><textarea placeholder="Décrivez brièvement votre projet..."></textarea></div>
+    <div class="form-success" id="formSuccess">✓ Message envoyé ! Je vous réponds sous 48h.</div>
+    <button class="form-btn" id="formBtn">Envoyer ma demande</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Emma Fargeix</h3>
+      <div class="footer-brand-sub">Designer d'intérieur · Auvergne</div>
+      <p>Conception sur-mesure, plans 2D, rendus 3D réalistes. Basée dans le Puy-de-Dôme.</p>
+      <div class="footer-socials">
+        <a href="https://www.houzz.fr/pro/atelierdesmontsbyemma/l-atelier-des-monts" target="_blank" class="footer-social">H</a>
+        <a href="https://www.facebook.com/profile.php?id=61577071526013" target="_blank" class="footer-social">f</a>
+        <a href="https://fr.pinterest.com/emmafargeix12/" target="_blank" class="footer-social">P</a>
+        <a href="https://www.linkedin.com/in/emma-fargeix-2b3745184/" target="_blank" class="footer-social">in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul><li><a href="#intro">L'Atelier</a></li><li><a href="#services">Services</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#contact">Rendu 3D</a></li><li><a href="#contact">Contact</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul><li><a href="tel:0778183681">07 78 18 36 81</a></li><li><a href="mailto:emma.atelierdesmonts@gmail.com">emma.atelierdesmonts@gmail.com</a></li><li><span style="color:rgba(255,255,255,.5)">Puy-de-Dôme · Auvergne</span></li></ul>
+    </div>
+    <div class="footer-col">
+      <h5>Légal</h5>
+      <ul><li><a href="#">Mentions légales</a></li><li><a href="#">Confidentialité</a></li><li><a href="#">CGV</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Emma Fargeix — Atelier des Monts. Tous droits réservés.</span>
+    <span>Puy-de-Dôme · Auvergne · France</span>
+  </div>
+</footer>
+
+<script>
+// Curseur (desktop uniquement)
+if(window.matchMedia('(hover:hover)').matches){
+  const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+    setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';},80);
+  });
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='60px';ring.style.height='60px';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
+  });
+}
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
+
+// Burger menu
+const burger=document.getElementById('burger'),links=document.getElementById('navLinks');
+burger.addEventListener('click',()=>{
+  const open=links.classList.toggle('open');
+  burger.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';
+}));
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Formulaire (simulation)
+document.getElementById('formBtn').addEventListener('click',function(){
+  const inputs=document.querySelectorAll('.contact-form input,.contact-form textarea');
+  let ok=true;inputs.forEach(i=>{if(!i.value.trim())ok=false;});
+  if(!ok){alert('Merci de remplir tous les champs.');return;}
+  document.getElementById('formSuccess').style.display='block';
+  this.style.display='none';
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();const top=t.getBoundingClientRect().top+scrollY-90;window.scrollTo({top,behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
